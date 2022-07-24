@@ -1,0 +1,7 @@
+@import 'theme/mixins';
+
+$themes: ();
+$themeValues: ();
+
+@import 'theme/light';
+@include generateThemeMappings(light, $light);

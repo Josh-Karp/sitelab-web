@@ -1,0 +1,21 @@
+.container {
+  max-width: 340px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1.5em;
+  padding: 2em;
+  background: #ffffff;
+  filter: drop-shadow(1rem 1rem 1.5rem rgb(177 186 201 / 25%));
+  border-radius: 10px;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  @media (min-width: 768px) {
+    margin-inline: 1em;
+  }
+}

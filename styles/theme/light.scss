@@ -1,0 +1,9 @@
+@import "./functions";
+
+$light: (
+  border: color(lighterGray),
+  text-dark: color(black),
+  text-light: color(white),
+  text-muted: color(gray),
+  background-gray: color(lightGray),
+);
