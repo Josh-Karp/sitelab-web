@@ -12,9 +12,9 @@ export const Success = () => {
           <h2>Experienced & Skilled Designers</h2>
           <p>
             Our dedicated team is our key to delivering a stress-free and
-            superior quality working experience to our partners'. So whether you
+            superior quality working experience to our partners&apos;. So whether you
             want us to develop a web design from scratch, create a social media
-            plan or assemble your brand's identity, we have the team strength
+            plan or assemble your brand&apos;s identity, we have the team strength
             and the right talent to get your work done seamlessly.
           </p>
         </div>

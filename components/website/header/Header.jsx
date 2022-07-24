@@ -9,7 +9,7 @@ export const Header = () => {
         <div className={style.logo}>
           <a href="#">
             <Image
-              alt="Logo"
+              alt="SiteLab Logo"
               src="/SiteLab_xSmall-alt.png"
               width={124}
               height={45}
@@ -17,7 +17,7 @@ export const Header = () => {
           </a>
         </div>
         <input type="checkbox" id={style.toggle} style={{ display: "none" }} />
-        <label className={style.burger} for={style.toggle}>
+        <label className={style.burger} htmlFor={style.toggle}>
           <div className={style.bar}></div>
           <div className={style.bar}></div>
           <div className={style.bar}></div>

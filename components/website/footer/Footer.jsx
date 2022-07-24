@@ -13,7 +13,7 @@ export const Footer = () => {
     <div className={style.container}>
       <div className={style.cta}>
         <div>
-          <h2>Let's work together</h2>
+          <h2>Let&apos;s work together</h2>
           <p>We Accelerate Growth</p>
         </div>
         <button className="orange">
