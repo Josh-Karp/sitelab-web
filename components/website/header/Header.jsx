@@ -25,19 +25,19 @@ export const Header = () => {
         <nav className={style.menu}>
           <ul aria-label="Primary" role="list">
             <li>
-              <a href="#">Home</a>
+              <a className='link' href="#">Home</a>
             </li>
             <li>
-              <a href="#">Services</a>
+              <a className='link' href="#">Services</a>
             </li>
             <li>
-              <a href="#">Pricing</a>
+              <a className='link' href="#">Pricing</a>
             </li>
             <li>
-              <a href="#">About Us</a>
+              <a className='link' href="#">About Us</a>
             </li>
             <li>
-              <a href="#">Contact</a>
+              <a className='link' href="#">Contact</a>
             </li>
           </ul>
         </nav>

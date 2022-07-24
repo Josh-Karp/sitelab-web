@@ -43,13 +43,13 @@ export const Footer = () => {
             <span>Copyright &copy; 2022 SiteLab (Pty) Ltd</span>
             <div className={style.flexEnd}>
               <Link href="#" className="small-text link">
-                <a>Terms of Service</a>
+                <a className="link" >Terms of Service</a>
               </Link>
               <Link href="#" className="small-text link">
-                <a>Privacy Policy</a>
+                <a className="link" >Privacy Policy</a>
               </Link>
               <Link href="#" className="small-text link">
-                <a>Sitemap</a>
+                <a className="link" >Sitemap</a>
               </Link>
             </div>
           </div>
@@ -58,19 +58,19 @@ export const Footer = () => {
           <div className={style.links}>
             <p className={style.heading}>Resources</p>
             <Link href="#">
-              <a>News</a>
+              <a className="link" >Services</a>
             </Link>
             <Link href="#">
-              <a>Resources</a>
+              <a className="link" >Pricing</a>
             </Link>
           </div>
           <div className={style.links}>
             <p className={style.heading}>Support</p>
             <Link href="#">
-              <a>Contact Us</a>
+              <a className="link" >Dashboard</a>
             </Link>
             <Link href="#">
-              <a>FAQ</a>
+              <a className="link" >Contact Us</a>
             </Link>
           </div>
           <div className={style.connect}>
