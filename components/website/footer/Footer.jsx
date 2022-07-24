@@ -14,7 +14,7 @@ export const Footer = () => {
       <div className={style.cta}>
         <div>
           <h2>Let&apos;s work together</h2>
-          <p>We Accelerate Growth</p>
+          <p>We accelerate growth</p>
         </div>
         <button className="orange">
           Get started{" "}

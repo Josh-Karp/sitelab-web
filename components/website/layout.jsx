@@ -8,7 +8,7 @@ export default function RootLayout({ children }) {
       <Head>
         <title>Sitelab</title>
         <meta name="description" content="Sitelab" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/sitelab_favicon-alt.png" />
       </Head>
       <main>
         <Header />

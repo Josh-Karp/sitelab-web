@@ -8,7 +8,7 @@ export const Hero = () => {
     <div className={style.container}>
       <div className={style.content}>
         <div className={style.text}>
-          <h1>A Digital Content & Marketing Agency</h1>
+          <h1>Digital Content & Marketing Agency</h1>
           <p>
             We create perfect brands, build outstanding websites, vibrant
             identities and inspire creative concepts.
