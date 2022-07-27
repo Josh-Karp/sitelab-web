@@ -1,0 +1,40 @@
+.content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.icon {
+  font-size: 20px;
+}
+
+.variant {
+  opacity: 0.9;
+  margin-right: 10px;
+}
+
+.success {
+  background-color: #24ce7b;
+}
+
+.successFixed {
+  background-color: #24ce7b;
+}
+
+.error {
+  background-color: #ff4f6e;
+}
+
+.info {
+  background-color: #d55afe;
+}
+
+.warning {
+  background-color: #ffc42b;
+}

@@ -19,11 +19,12 @@
   .text {
     text-align: left;
     align-items: flex-start;
-    padding: 20% 5%;
+    padding: 72px 5%;
     flex: 1 0;
     gap: 3rem;
 
     h1 {
+      position: relative;
       max-width: 10em;
     }
 
@@ -42,7 +43,15 @@
     }
 
     @media (min-width: 768px) {
-      padding: 5% 9%;
+      padding: 72px 9%;
+
+      h1:before {
+        content: url("/left-alt.png");
+        position: absolute;
+        z-index: -1;
+        top: -30px;
+        left: -30px;
+      }
 
       button {
         place-self: unset;

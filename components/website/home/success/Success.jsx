@@ -6,7 +6,7 @@ import { Block } from "../../elements/block/Block";
 export const Success = () => {
   return (
     <div className={style.container}>
-      <img src="/success.svg" alt="Success" />
+      <Image src="/success.png" alt="Success" width={581} height={515} quality={100}/>
       <div className={style.content}>
         <div className={style.text}>
           <h2>Experienced & Skilled Designers</h2>

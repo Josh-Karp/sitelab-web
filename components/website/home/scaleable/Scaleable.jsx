@@ -6,7 +6,7 @@ import { Block } from "../../elements/block/Block";
 export const Scaleable = () => {
   return (
     <div className={style.container}>
-      <img src="/sales.svg" alt="Scaleable" />
+      <Image src="/sales.png" alt="Scaleable" width={515} height={581} quality={100}/>
       <div className={style.content}>
         <div className={style.text}>
           <h2>Driving Business Growth through Creative Design</h2>

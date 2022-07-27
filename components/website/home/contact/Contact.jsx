@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
+import { Formik } from "formik";
+import * as yup from "yup";
+
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,6 +16,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import styled from "@emotion/styled";
 import { FormGroup, MenuItem } from "@mui/material";
+import { notify } from "../../../../modules/notifications/slice/NotificationSlice";
+import { useDispatch } from "react-redux";
 
 const WEB_DEVELOPMENT = [
   { value: "WordPress", label: "WordPress" },
@@ -21,30 +26,64 @@ const WEB_DEVELOPMENT = [
   { value: "Others", label: "Others" },
 ];
 
+const phoneValidation = /^[0-9]{3}[0-9]{3}[0-9]{4}$/;
+
+const validationSchema = {
+  name: yup.string().required("Required"),
+  email: yup.string().email().required("Required"),
+  phone: yup
+    .string()
+    .matches(phoneValidation, "Phone number is not valid")
+    .required("Required"),
+  checkbox: yup.array().required("Please select a service"),
+  requirements: yup.string().required("Required"),
+};
+
+const initialValues = {
+  name: "",
+  email: "",
+  phone: "",
+  checkbox: [],
+  requirements: "",
+};
+
 export const Contact = () => {
-  const [checked, setChecked] = useState([{ Web: false }, { Seo: false }]);
-  const [child, setChild] = useState([]);
+  const dispatch = useDispatch();
 
-  const handleOptions = (event) => {
-    setChild(event.target.value);
-  };
+  const submitForm = useCallback(
+    async (values, formActions) => {
+      values.checkbox.filter((e) => e);
 
-  const handleChange = (event) => {
-    const { name, checked } = event.target;
-    setChecked((prevState) => ({
-      ...prevState,
-      [name]: checked,
-    }));
-  };
+      try {
+        const res = await fetch("/api/mail", {
+          method: "post",
+          body: JSON.stringify(values),
+        });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      name: data.get("name"),
-    });
-  };
+        if (res.status !== 200) {
+          throw Error(res.statusText);
+        }
+
+        dispatch(
+          notify({
+            message: "Enquiry form sent",
+            variant: "success",
+          })
+        );
+      } catch (error) {
+        dispatch(
+          notify({
+            message: "Failed to send",
+            variant: "error",
+          })
+        );
+      } finally {
+        formActions.resetForm();
+        formActions.setSubmitting(false);
+      }
+    },
+    [dispatch]
+  );
 
   const StyledTextField = styled(TextField)({
     "& .MuiOutlinedInput-root": {
@@ -66,6 +105,7 @@ export const Contact = () => {
     },
     input: {
       padding: "8.5px 0px",
+      width: "90%",
     },
   });
 
@@ -93,59 +133,78 @@ export const Contact = () => {
     },
   });
 
-  const Webchildren = (
-    <Box
-      sx={{
-        textAlign: "start",
-        alignItems: "flex-start",
-        maxWidth: "15em",
-        "& .MuiSelect-select": { width: "12ch", paddingTop: "10px" },
-        "> p": { marginBottom: "0.85em", fontSize: "14px" },
-        div: { borderRadius: "10px" },
-      }}
-    >
-      <p>What is your preferred web development technology/CMS?</p>
-      <TextField
-        required
-        id="web-development-select"
-        select
-        value={child}
-        onChange={handleOptions}
-        size="small"
-      >
-        {WEB_DEVELOPMENT.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-    </Box>
-  );
-
-  const SEOChildren = (
-    <Box
-      sx={{
-        textAlign: "start",
-        alignItems: "flex-start",
-        "& .MuiSelect-select": { width: "12ch", paddingTop: "10px" },
-        "> p": { marginBottom: "0.85em", fontSize: "14px" },
-        div: { borderRadius: "10px", flex: "unset" },
-      }}
-    >
-      <p>Mention the website for which you need SEO</p>
-      <StyledTextField
-        required
-        fullWidth
-        id="seo"
-        label="Text here"
-        name="seo"
-        size="small"
+  const Webchildren = (setFieldValue) => {
+    return (
+      <Box
         sx={{
-          flex: "unset",
+          textAlign: "start",
+          alignItems: "flex-start",
+          maxWidth: "15em",
+          "& .MuiSelect-select": {
+            width: "12ch",
+            paddingTop: "10px",
+            color: "#8993AD",
+          },
+          "> p": { marginBottom: "0.85em", fontSize: "14px" },
+          div: {
+            borderRadius: "10px",
+            "& .MuiOutlinedInput-root": {
+              "&.Mui-focused fieldset": {
+                borderColor: "#ff4f6e",
+              },
+            },
+          },
         }}
-      />
-    </Box>
-  );
+      >
+        <p>What is your preferred web development technology/CMS?</p>
+        <TextField
+          required
+          id="web-development-select"
+          select
+          onChange={(event) => {
+            setFieldValue("checkbox.2", event.target.value);
+          }}
+          size="small"
+        >
+          {WEB_DEVELOPMENT.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      </Box>
+    );
+  };
+
+  const SEOChildren = (setFieldValue) => {
+    return (
+      <Box
+        sx={{
+          textAlign: "start",
+          alignItems: "flex-start",
+          "& .MuiSelect-select": { width: "12ch", paddingTop: "10px" },
+          "> p": { marginBottom: "0.85em", fontSize: "14px" },
+          div: { borderRadius: "10px", flex: "unset" },
+        }}
+      >
+        <p>Mention the website for which you need SEO</p>
+        <StyledTextField
+          required
+          fullWidth
+          id="seo"
+          label="Text here"
+          name="seo"
+          size="small"
+          onChange={(event) => {
+            setFieldValue("checkbox.1", event.target.value);
+          }}
+          sx={{
+            flex: "unset",
+          }}
+        />
+      </Box>
+    );
+  };
 
   return (
     <Container
@@ -167,100 +226,155 @@ export const Contact = () => {
           alignItems: "center",
         }}
       >
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <Box component="div" sx={{ flexFlow: "row wrap", gap: "2em" }}>
-            <StyledTextField
-              required
-              id="name"
-              label="Name"
-              name="name"
-              autoComplete="name"
-              size="small"
-            />
-            <StyledTextField
-              required
-              id="email"
-              label="Email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              size="small"
-            />
-            <StyledTextField
-              required
-              name="phone"
-              label="Phone"
-              type="phone"
-              id="phone"
-              autoComplete="phone"
-              size="small"
-            />
-          </Box>
-          <FormGroup
-            sx={{
-              flexFlow: "row wrap",
-              my: "2em",
-              alignItems: "flex-start",
-              gap: "2em",
-              span: {
-                fontFamily: "inherit",
-                color: "#8993AD",
-              },
-              ["@media (max-width:768px)"]: {
-                justifyContent: "flex-start",
-                flexFlow: "column wrap",
-              },
-            }}
-          >
-            <FormControlLabel
-              control={<StyledCheckbox />}
-              label="Social Media Marketing"
-            />
-            <div style={{ alignItems: "flex-start" }}>
-              <FormControlLabel
-                label="SEO Services"
-                control={
-                  <StyledCheckbox
-                    name="Seo"
-                    checked={checked["Seo"]}
-                    onChange={handleChange}
+        <Formik
+          initialValues={initialValues}
+          validationSchema={yup.object().shape(validationSchema)}
+          onSubmit={submitForm}
+        >
+          {({
+            values,
+            handleChange,
+            handleSubmit,
+            errors,
+            touched,
+            setFieldValue,
+            resetForm,
+          }) => (
+            <Box
+              component="form"
+              onSubmit={handleSubmit}
+              noValidate
+              sx={{ mt: 1 }}
+            >
+              <Box component="div" sx={{ flexFlow: "row wrap", gap: "2em" }}>
+                <StyledTextField
+                  required
+                  id="name"
+                  label="Name"
+                  name="name"
+                  autoComplete="name"
+                  size="small"
+                  value={values.name}
+                  onChange={handleChange("name")}
+                  error={touched.name && Boolean(errors.name)}
+                />
+                <StyledTextField
+                  required
+                  id="email"
+                  label="Email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  size="small"
+                  value={values.email}
+                  onChange={handleChange("email")}
+                  error={touched.email && Boolean(errors.email)}
+                />
+                <StyledTextField
+                  required
+                  name="phone"
+                  label="Phone"
+                  type="phone"
+                  id="phone"
+                  autoComplete="phone"
+                  size="small"
+                  value={values.phone}
+                  onChange={handleChange("phone")}
+                  error={touched.phone && Boolean(errors.phone)}
+                />
+              </Box>
+              <FormGroup
+                sx={{
+                  flexFlow: "row wrap",
+                  my: "2em",
+                  alignItems: "flex-start",
+                  gap: "2em",
+                  span: {
+                    fontFamily: "inherit",
+                    color: "#8993AD",
+                  },
+                  ["@media (max-width:768px)"]: {
+                    justifyContent: "flex-start",
+                    flexFlow: "column wrap",
+                  },
+                }}
+              >
+                <FormControlLabel
+                  control={<StyledCheckbox />}
+                  label="Social Media Marketing"
+                  name="smm"
+                  onChange={(event) => {
+                    const value = event.target.checked ? "ssm" : null;
+                    setFieldValue("checkbox.0", value);
+                  }}
+                />
+                <div style={{ alignItems: "flex-start" }}>
+                  <FormControlLabel
+                    label="SEO Services"
+                    control={
+                      <StyledCheckbox
+                        name="seo"
+                        onChange={(event) => {
+                          const value = event.target.checked ? "seo" : null;
+                          setFieldValue("checkbox.1", value);
+                        }}
+                        error={touched.seo && Boolean(errors.seo)}
+                      />
+                    }
                   />
-                }
-              />
-              {checked["Seo"] ? SEOChildren : null}
-            </div>
-            <div style={{ alignItems: "flex-start" }}>
-              <FormControlLabel
-                label="Web Development Services"
-                control={
-                  <StyledCheckbox
-                    name="Web"
-                    checked={checked["Web"]}
-                    onChange={handleChange}
+                  {values.checkbox[1] ? SEOChildren(setFieldValue) : null}
+                </div>
+                <div style={{ alignItems: "flex-start" }}>
+                  <FormControlLabel
+                    label="Web Development Services"
+                    control={
+                      <StyledCheckbox
+                        name="web"
+                        onChange={(event) => {
+                          const value = event.target.checked ? "web" : null;
+                          setFieldValue("checkbox.2", value);
+                        }}
+                        error={touched.checkbox && Boolean(errors.checkbox)}
+                      />
+                    }
                   />
-                }
-              />
-              {checked["Web"] ? Webchildren : null}
-            </div>
-            <FormControlLabel control={<StyledCheckbox />} label="Other" />
-          </FormGroup>
-          <Box component="div" sx={{ flexFlow: "row", gap: "2em" }}>
-            <StyledTextField
-              required
-              fullWidth
-              name="requirements"
-              label="Share your requirements"
-              type="text"
-              id="requirements"
-              size="small"
-              placeholder="(You can add links to your shareable materials if any)"
-              multiline
-            />
-          </Box>
-          <StyledButton type="submit" variant="contained">
-            Submit
-          </StyledButton>
-        </Box>
+                  {values.checkbox[2] ? Webchildren(setFieldValue) : null}
+                </div>
+                <FormControlLabel
+                  control={<StyledCheckbox />}
+                  label="Other"
+                  name="Other"
+                  onChange={(event) => {
+                    const value = event.target.checked ? "other" : null;
+                    setFieldValue("checkbox.3", value);
+                  }}
+                />
+              </FormGroup>
+              <Box component="div" sx={{ flexFlow: "row", gap: "2em" }}>
+                <StyledTextField
+                  required
+                  fullWidth
+                  name="requirements"
+                  label="Share your requirements"
+                  type="text"
+                  id="requirements"
+                  size="small"
+                  placeholder="(You can add links to your shareable materials if any)"
+                  multiline
+                  value={values.requirements}
+                  onChange={handleChange("requirements")}
+                  error={touched.requirements && Boolean(errors.requirements)}
+                />
+              </Box>
+              <span className="form-error">
+                {errors.checkbox && touched.checkbox && errors.checkbox}
+              </span>
+              <StyledButton type="submit" variant="contained">
+                Submit
+              </StyledButton>
+            </Box>
+          )}
+        </Formik>
       </Box>
     </Container>
   );
