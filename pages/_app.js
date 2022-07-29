@@ -1,6 +1,6 @@
 import "../styles/globals.scss";
 
-import { createStore } from "../Components/store";
+import { createStore } from "../components/store";
 import { Provider } from "react-redux";
 import { Notification } from "../modules/notifications/Notification";
 

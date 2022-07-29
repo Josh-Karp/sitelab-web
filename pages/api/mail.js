@@ -8,8 +8,6 @@ export default async (req, res) => {
     const body = JSON.parse(req.body);
     
     const { subject, message } = CONTACT_TEMPLATE(body)
-
-    console.log(body)
     
     const data = {
         to: process.env.EMAIL_TO,
