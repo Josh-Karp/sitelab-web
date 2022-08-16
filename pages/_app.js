@@ -1,17 +1,72 @@
-import "../styles/globals.scss";
+// import "../src/styles/globals.scss";
 
-import { createStore } from "../components/store";
-import { Provider } from "react-redux";
-import { Notification } from "../modules/notifications/Notification";
+import ThemeProvider from "src/theme/ThemeProvider";
+import CssBaseline from "@mui/material/CssBaseline";
+import createEmotionCache from "src/createEmotionCache";
 
-export default function App({ Component, pageProps }) {
+import { useEffect, useState } from "react";
+import { store, wrapper } from "src/state/store";
+import { CacheProvider } from "@emotion/react";
+import { Provider as ReduxProvider } from "react-redux";
+import { AuthConsumer, AuthProvider } from "src/context/FirebaseAuthContext";
+import { SidebarProvider } from "src/context/SidebarContext";
+import { Notification } from "src/modules/notifications/Notification";
+
+import Loader from "src/components/__elements/Loader";
+import { Router } from "next/router";
+
+import { injectStore } from "src/utils/zoho/axiosZoho";
+injectStore(store);
+
+const clientSideEmotionCache = createEmotionCache();
+
+function App({ Component, emotionCache = clientSideEmotionCache, pageProps }) {
+  const [loading, setLoading] = useState(false);
   const getLayout = Component.getLayout || ((page) => page);
-  const store = createStore();
+
+  useEffect(() => {
+    const start = () => {
+      setLoading(true);
+    };
+
+    const end = () => {
+      setLoading(false);
+    };
+
+    Router.events.on("routeChangeStart", start);
+    Router.events.on("routeChangeComplete", end);
+    Router.events.on("routeChangeError", end);
+
+    return () => {
+      Router.events.off("routeChangeStart", start);
+      Router.events.off("routeChangeComplete", end);
+      Router.events.off("routeChangeError", end);
+    };
+  }, []);
 
   return (
-    <Provider store={store}>
-      {getLayout(<Component {...pageProps} />)}
-      <Notification />
-    </Provider>
+    <CacheProvider value={emotionCache}>
+      <ReduxProvider store={store}>
+        <SidebarProvider>
+          <ThemeProvider>
+            <AuthProvider>
+              <CssBaseline />
+              <AuthConsumer>
+                {(auth) =>
+                  !auth.isInitialized | loading ? (
+                    <Loader />
+                  ) : (
+                    getLayout(<Component {...pageProps} />)
+                  )
+                }
+              </AuthConsumer>
+              <Notification />
+            </AuthProvider>
+          </ThemeProvider>
+        </SidebarProvider>
+      </ReduxProvider>
+    </CacheProvider>
   );
 }
+
+export default wrapper.withRedux(App);

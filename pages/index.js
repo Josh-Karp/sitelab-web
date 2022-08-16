@@ -1,14 +1,14 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Clients } from "../components/website/home/clients/Clients";
-import { Contact } from "../components/website/home/contact/Contact";
-import { Hero } from "../components/website/home/hero/Hero";
-import { LifeCycle } from "../components/website/home/lifecycle/Lifecycle";
-import { Scaleable } from "../components/website/home/scaleable/Scaleable";
-import { Services } from "../components/website/home/services/Services";
-import { Success } from "../components/website/home/success/Success";
-import { Expertise } from "../components/website/home/expertise/Expertise";
-import RootLayout from "../components/website/layout";
+import { Clients } from "../src/components/website/home/clients/Clients";
+import { Contact } from "../src/components/website/home/contact/Contact";
+import { Hero } from "../src/components/website/home/hero/Hero";
+import { LifeCycle } from "../src/components/website/home/lifecycle/Lifecycle";
+import { Scaleable } from "../src/components/website/home/scaleable/Scaleable";
+import { Services } from "../src/components/website/home/services/Services";
+import { Success } from "../src/components/website/home/success/Success";
+import { Expertise } from "../src/components/website/home/expertise/Expertise";
+import RootLayout from "../src/components/website/layout";
 
 export default function Landing() {
   return (
@@ -20,8 +20,7 @@ export default function Landing() {
       <Scaleable />
       <LifeCycle />
       <Expertise />
-      <Contact
-       />
+      <Contact />
     </>
   );
 }
