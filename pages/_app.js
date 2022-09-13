@@ -1,4 +1,5 @@
 // import "../src/styles/globals.scss";
+import "../src/theme/global.scss";
 
 import ThemeProvider from "src/theme/ThemeProvider";
 import CssBaseline from "@mui/material/CssBaseline";

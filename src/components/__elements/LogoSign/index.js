@@ -99,7 +99,7 @@ function Logo() {
   return (
     <TooltipWrapper title={"SiteLab Logo"} arrow>
       <LogoWrapper href="/">
-        {/* <Badge
+        <Badge
           sx={{
             ".MuiBadge-badge": {
               fontSize: theme.typography.pxToRem(11),
@@ -116,7 +116,7 @@ function Logo() {
               <LogoSignInner />
             </LogoSign>
           </LogoSignWrapper>
-        </Badge> */}
+        </Badge>
       </LogoWrapper>
     </TooltipWrapper>
   );

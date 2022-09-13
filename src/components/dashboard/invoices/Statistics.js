@@ -2,10 +2,10 @@ import { Box, Card, Grid, Typography, styled } from "@mui/material";
 import numeral from "numeral";
 import Text from "src/components/__elements/Text";
 
-const DotInfo = styled("span")(
+const DotError = styled("span")(
   ({ theme }) => `
     border-radius: 22px;
-    background: ${theme.colors.info.main};
+    background: ${theme.colors.error.main};
     width: ${theme.spacing(1.5)};
     height: ${theme.spacing(1.5)};
     display: inline-block;
@@ -44,7 +44,7 @@ function Statistics({ contact }) {
             alignItems="center"
             justifyContent="center"
           >
-            <Typography variant="h2">{contact.company_name}</Typography>
+            <Typography variant="h2">{contact?.company_name}</Typography>
           </Box>
         </Card>
       </Grid>
@@ -103,7 +103,7 @@ function Statistics({ contact }) {
                 mr: 2,
               }}
             >
-              <DotInfo />
+              <DotError />
               {"Credit"}
             </Typography>
             <Typography variant="h3">

@@ -57,10 +57,9 @@ const UserAvatar = styled(Avatar)(
 
 const MenuListWrapperPrimary = styled(MenuList)(
   ({ theme }) => `
-  padding: ${theme.spacing(2)};
+  padding: ${theme.spacing(1)};
 
   & .MuiMenuItem-root {
-      border-radius: 50px;
       padding: ${theme.spacing(1, 1, 1, 2.5)};
       min-width: 200px;
       margin-bottom: 2px;
@@ -98,14 +97,14 @@ const UserBoxText = styled(Box)(
 const UserBoxLabel = styled(Typography)(
   ({ theme }) => `
         font-weight: ${theme.typography.fontWeightBold};
-        color: ${theme.palette.secondary.main};
+        color: ${theme.palette.primary.primary};
         display: block;
 `
 );
 
 const UserBoxDescription = styled(Typography)(
   ({ theme }) => `
-        color: ${theme.palette.secondary.light}
+        color: ${theme.palette.secondary.dark}
 `
 );
 
@@ -161,7 +160,11 @@ function HeaderUserbox() {
           }}
           display="flex"
         >
-          <Avatar variant="rounded" alt={user.displayName} src={user.photoURL} />
+          <Avatar
+            variant="rounded"
+            alt={user.displayName}
+            src={user.photoURL}
+          />
           <UserBoxText>
             <UserBoxLabel variant="body1">{user.displayName}</UserBoxLabel>
             <UserBoxDescription variant="body2">

@@ -5,7 +5,7 @@ const client_id = process.env.ZOHO_CLIENT_ID;
 const client_secret = process.env.ZOHO_CLIENT_SECRET;
 const refresh_token = process.env.ZOHO_REFRESH_TOKEN;
 
-export default async (req, res) => {
+const handler = async (req, res) => {
   switch (req.method) {
     case "GET":
       return getAccessToken();
@@ -27,3 +27,5 @@ export default async (req, res) => {
     }
   }
 };
+
+export default handler;

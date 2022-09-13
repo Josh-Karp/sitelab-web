@@ -1,6 +1,6 @@
-import { adminAuth } from "src/utils/firebaseAdmin";
+import { adminAuth } from "src/utils/firebase/firebaseAdmin";
 
-export default async (req, res) => {
+const handler = async (req, res) => {
   switch (req.method) {
     case "GET":
       return getUser();
@@ -71,3 +71,5 @@ export default async (req, res) => {
     }
   }
 };
+
+export default handler;

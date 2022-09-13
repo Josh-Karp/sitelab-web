@@ -10,7 +10,7 @@ import {
   getIdToken,
 } from "firebase/auth";
 
-import { firebaseAuth } from "src/utils/firebase";
+import { firebaseAuth } from "src/utils/firebase/firebaseApp";
 import PropTypes from "prop-types";
 
 const initialAuthState = {

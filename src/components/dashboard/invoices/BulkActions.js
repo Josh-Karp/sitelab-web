@@ -65,11 +65,11 @@ function BulkActions() {
         onClose={closeMenu}
         anchorOrigin={{
           vertical: "center",
-          horizontal: "center",
+          horizontal: "right",
         }}
         transformOrigin={{
           vertical: "center",
-          horizontal: "center",
+          horizontal: "right",
         }}
       >
         <List
@@ -79,7 +79,7 @@ function BulkActions() {
           component="nav"
         >
           <ListItem button>
-            <ListItemText primary={"Download Selected"} />
+            <ListItemText primary={"Download All"} />
           </ListItem>
         </List>
       </Menu>

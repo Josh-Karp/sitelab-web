@@ -122,7 +122,7 @@ const Invoices = ({ invoices }) => {
 
   const handleSelectAllInvoices = (event) => {
     setSelectedInvoices(
-      event.target.checked ? invoices.map((invoice) => invoice.id) : []
+      event.target.checked ? invoices.map((invoice) => invoice.invoice_id) : []
     );
   };
 
@@ -177,7 +177,7 @@ const Invoices = ({ invoices }) => {
                 m: 0,
               }}
               onChange={handleQueryChange}
-              placeholder={"Search by invoice number"}
+              placeholder={"Search by invoice number, ref..."}
               value={query}
               fullWidth
               variant="outlined"

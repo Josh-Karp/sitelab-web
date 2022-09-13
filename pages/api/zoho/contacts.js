@@ -2,7 +2,7 @@ import axios from "axios";
 
 const organization_id = process.env.ZOHO_ORGANIZATION_ID;
 
-export default async (req, res) => {
+const async handler = (req, res) => {
   switch (req.method) {
     case "GET":
       return getContacts();
@@ -33,3 +33,5 @@ export default async (req, res) => {
     }
   }
 };
+
+export default handler;

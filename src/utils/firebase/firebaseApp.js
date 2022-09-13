@@ -1,6 +1,6 @@
 import { getApp, initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { firebaseConfig } from 'firebase.config';
+import { firebaseConfig } from "firebase.config";
 
 function createFirebaseApp(firebaseConfig) {
   try {

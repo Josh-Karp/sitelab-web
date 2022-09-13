@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
-import { adminAuth } from "src/utils/firebaseAdmin";
+import { adminAuth } from "src/utils/firebase/firebaseAdmin";
 
 import Head from "next/head";
 

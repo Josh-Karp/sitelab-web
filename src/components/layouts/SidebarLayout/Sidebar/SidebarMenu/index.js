@@ -17,8 +17,6 @@ const MenuWrapper = styled(Box)(
   }
 
     .MuiListSubheader-root {
-      text-transform: uppercase;
-      font-weight: bold;
       font-size: ${theme.typography.pxToRem(12)};
       color: ${theme.colors.alpha.trueWhite[50]};
       padding: ${theme.spacing(0, 2.5)};
@@ -118,7 +116,7 @@ const SubMenuWrapper = styled(Box)(
 
               &:before {
                 content: ' ';
-                background: ${theme.colors.alpha.trueWhite[100]};
+                background: ${theme.colors.error.main};
                 opacity: 0;
                 transition: ${theme.transitions.create([
                   "transform",

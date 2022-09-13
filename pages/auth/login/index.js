@@ -107,7 +107,6 @@ function LoginPage() {
                   component="span"
                   variant="subtitle2"
                   color="text.primary"
-                  fontWeight="bold"
                 >
                   {"Don’t have an account, yet?"}
                 </Typography>{" "}

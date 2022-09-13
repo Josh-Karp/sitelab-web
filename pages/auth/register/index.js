@@ -21,20 +21,18 @@ const icons = {
 
 const CardImg = styled(Card)(
   ({ theme }) => `
-    width: 90px;
+    width: 300px;
     height: 80px;
+    padding: ${theme.spacing(4)};
+    gap: ${theme.spacing(2)};
     display: inline-flex;
+    flex-flow: row nowrap;
     align-items: center;
     justify-content: center;
     position: relative;
     background: ${theme.colors.alpha.white[100]};
     margin: 0 ${theme.spacing(1)};
-    border: 1px solid ${theme.colors.alpha.black[10]};
     transition: ${theme.transitions.create(["all"])};
-
-    &:hover {
-      border-color: ${theme.colors.primary.main};
-    }
 `
 );
 const BottomWrapper = styled(Box)(
@@ -119,7 +117,6 @@ function RegisterPage() {
                   component="span"
                   variant="subtitle2"
                   color="text.primary"
-                  fontWeight="bold"
                 >
                   {"Already have an account?"}
                 </Typography>{" "}
@@ -130,15 +127,16 @@ function RegisterPage() {
             </Card>
             <BottomWrapper>
               <Box mb={3}>
-                <Tooltip arrow placement="top" title="Firebase">
-                  <CardImg>
-                    <img
-                      height={50}
-                      alt="Firebase"
-                      src={icons["FirebaseAuth"]}
-                    />
-                  </CardImg>
-                </Tooltip>
+                <CardImg>
+                  <Typography
+                    component="span"
+                    variant="subtitle2"
+                    color="text.primary"
+                  >
+                    {"Provided by Firebase"}
+                  </Typography>
+                  <img height={50} alt="Firebase" src={icons["FirebaseAuth"]} />
+                </CardImg>
               </Box>
             </BottomWrapper>
           </Wrapper>

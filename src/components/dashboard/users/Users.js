@@ -47,7 +47,7 @@ import MoreVertTwoToneIcon from "@mui/icons-material/MoreVertTwoTone";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SetClaimsForm from "./actions/SetClaims";
 import { wait } from "src/utils/wait";
-import { firebaseAuth } from "src/utils/firebase";
+import { firebaseAuth } from "src/utils/firebase/firebaseApp";
 import { applyFilters } from "src/utils/applyFilters";
 import { USER_ROLES } from "src/constants";
 

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const organization_id = process.env.ZOHO_ORGANIZATION_ID;
 
-export default async (req, res) => {
+export default handler = async (req, res) => {
   switch (req.method) {
     case "GET":
       return getStatment();

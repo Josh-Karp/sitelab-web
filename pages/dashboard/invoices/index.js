@@ -38,7 +38,7 @@ function InvoicesPage({ invoices, contact }) {
         })
       );
     }
-  }, []);
+  }, [contact, invoices, dispatch]);
 
   return (
     <>

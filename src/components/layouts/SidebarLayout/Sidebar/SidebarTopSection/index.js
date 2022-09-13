@@ -6,8 +6,6 @@ function SidebarTopSection() {
   const theme = useTheme();
   const { user } = useAuth();
 
-  console.log(user)
-
   return (
     <Box
       sx={{
